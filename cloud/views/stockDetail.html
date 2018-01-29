@@ -1,0 +1,31 @@
+<script>
+    var global_stock_code = '<%=data.stock_code%>';
+
+</script>
+
+<div class="content-header" >
+    <h1>Details of <%=data.stock_code%></h1>
+    <p></p>
+</div>
+<div class="dashboard_content_section" ng-controller="SingleStockCtrl">
+    <div class="panel panel-default">
+        <div class="panel-body" style="font-size:16px;font-weight:200;color:darkslategray">
+            <p >The “Predicted Price vs. Actual Price” graph compares predicted price with the actual price for a stock on any given day.
+            The “Standard Deviation” graph compares the standard deviation of a stock for both 2015 and 2016</p>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Predicted Price VS Actual Close Price</div>
+        <div class="panel-body">
+            <canvas id="stock-comparison-close_price-graph" width="400" height="190"></canvas>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Standard Deviation</div>
+        <div class="panel-body">
+            <canvas id="stock-sd-graph" width="400" height="190"></canvas>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+
+
+<div class="content-header" >
+    <h1>Psychological Profiling</h1>
+    <p></p>
+</div>
+<div class="dashboard_content_section" ng-controller="ProfileCtrl">
+    <div class="panel panel-default">
+        <div class="panel-body" style="font-size: 16px;font-weight:200;color:darkslategray">
+            <p>Psychological profiling is the second step in our mining process.
+                It’s adopted to assess an investor’s decision making style. In this step we consider the user's incleanations and reactions tawarding a set of problems as the deciding factor.</p>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">Step II. Decision Making Style Information</div>
+        <div class="panel-body">
+            <table class="table table-hover" elem-ready="initQuestions()">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Question</th>
+                    <th>Does not apply</th>
+                    <th>Somewhat Applies</th>
+                    <th>Generally Applies</th>
+                    <th>Always Applies</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="q in questions">
+                    <td>{{q.id+1}}</td>
+                    <td>{{q.text}}</td>
+                    <td><input type="radio" ng-model="questions[q.id].value" value="A"></td>
+                    <td><input type="radio" ng-model="questions[q.id].value" value="B"></td>
+                    <td><input type="radio" ng-model="questions[q.id].value" value="C"></td>
+                    <td><input type="radio" ng-model="questions[q.id].value" value="D"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="padding: 5px">
+        <button type="button" class="btn btn-success" ng-click="submitDecisionMakingStyle()">Submit</button>
+    </div>
+</div>

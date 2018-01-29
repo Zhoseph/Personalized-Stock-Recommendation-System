@@ -1,0 +1,117 @@
+<div class="content-header">
+    <h1 >Dashboard</h1>
+    {{setCurrentModule('dashboard')}}
+</div>
+<div class="dashboard_content_section" ng-controller="ProfileCtrl">
+
+    <div class="widget-box sample-widget">
+        <div class="widget-header">
+            <h2>My Watchlist</h2>
+            <i class="fa fa-cog"></i>
+        </div>
+        <div class="widget-content" ng-controller = "StockCtrl as sc" style="height: 200px;overflow-y: scroll">
+            <div ng-show="subscribeResult.length == 0" style="text-align: center">
+                <img src="/images/hex-loader2.gif" width="100" height="75" >
+            </div>
+            <table class="table" ng-show="subscribeResult.length != 0" >
+                <thead>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Current<br>Price</th>
+                    <th>Trend</th>
+                    <th>Predicted<br>Price</th>
+                    <th>Recommendation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat = "item in subscribeResult | orderBy:'-difference'">
+                    <td><a href="/home/stock_detail/{{item.code}}">{{item.code}}</a></td>
+                    <td>{{item.cur_price | number : 2}}</td>
+                    <td><span style="color: red" ng-show="item.difference < 0">➘</span>
+                        <span style="color: green" ng-show="item.difference > 0">➚</span>
+                        </td>
+                    <td>{{item.predicted_price | number : 2}}</td>
+                    <td>
+                        <span style="color: green"ng-show="item.standard_deviation > currentUser.Personal_Risk_Level
+                  && item.standard_deviation < currentUser.Personal_Risk_Level+2.5">★★★</span>
+                        <span style="color: green"ng-show="item.standard_deviation > currentUser.Personal_Risk_Level + 2.5
+                  && item.standard_deviation < currentUser.Personal_Risk_Level+3.5">★★</span>
+                        <span style="color: green"ng-show="item.standard_deviation <= currentUser.Personal_Risk_Level">★</span>
+                        <span style="color: red" ng-show="item.standard_deviation > currentUser.Personal_Risk_Level + 3.5">★</span>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="widget-box sample-widget">
+        <div class="widget-header">
+            <h2>Our Recommendations For Tomorrow</h2>
+            <i class="fa fa-cog"></i>
+        </div>
+        <div class="widget-content" ng-controller = "StockCtrl as sc" style="height: 200px;overflow-y: scroll">
+            <div ng-show="subscribeResult.length == 0" style="text-align: center">
+                <img src="/images/hex-loader2.gif" width="100" height="75" >
+            </div>
+            <table class="table" ng-show="subscribeResult.length != 0" >
+                <thead>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Current<br>Price</th>
+                    <th>Trend</th>
+                    <th>Predicted<br>Price</th>
+                    <th>Recommendation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat = "item in stockList | orderBy:'-difference' | limitTo: 10" ng-if="item.standard_deviation > currentUser.Personal_Risk_Level
+                  && item.standard_deviation < currentUser.Personal_Risk_Level+2.5">
+                    <!--| filter:standard_deviation > currentUser.Personal_Risk_Level
+                  && standard_deviation < currentUser.Personal_Risk_Level+2.5 | orderBy:'-difference'-->
+                    <td><a href="/home/stock_detail/{{item.code}}">{{item.code}}</a></td>
+                    <td>{{item.cur_price | number : 2}}</td>
+                    <td><span style="color: red" ng-show="item.difference < 0">➘</span>
+                        <span style="color: green" ng-show="item.difference > 0">➚</span>
+                        </td>
+                    <td>{{item.predicted_price | number : 2}}</td>
+                    <td>
+                        <span style="color: green"ng-show="item.standard_deviation > currentUser.Personal_Risk_Level
+                  && item.standard_deviation < currentUser.Personal_Risk_Level+2.5">★★★</span>
+                        <span style="color: green"ng-show="item.standard_deviation > currentUser.Personal_Risk_Level + 2.5
+                  && item.standard_deviation < currentUser.Personal_Risk_Level+3.5">★★</span>
+                        <span style="color: green"ng-show="item.standard_deviation <= currentUser.Personal_Risk_Level">★</span>
+                        <span style="color: red" ng-show="item.standard_deviation > currentUser.Personal_Risk_Level + 3.5">★</span>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="widget-box sample-widget">
+        <div class="widget-header">
+            <h2>Decision Making Style</h2>
+            <i class="fa fa-cog"></i>
+        </div>
+        <div class="widget-content">
+            <canvas id="decision-style-graph" width="400" height="190"></canvas>
+        </div>
+    </div>
+    <div class="widget-box sample-widget">
+        <div class="widget-header">
+            <h2>My Statistics</h2>
+            <i class="fa fa-cog"></i>
+        </div>
+        <div class="widget-content">
+            <ul class="list-group" style="margin: 5px">
+                <li class="list-group-item">My Risk Tolerance Level: <span class="badge">{{currentUser.Personal_Risk_Level}}</span></li>
+                <li class="list-group-item"># of Subscriptions: <span class="badge">{{currentUser.selectedStockList.length}}</span></li>
+                <li class="list-group-item">Warnings <span class="badge">3</span></li>
+            </ul>
+
+        </div>
+    </div>
+
+
+</div>

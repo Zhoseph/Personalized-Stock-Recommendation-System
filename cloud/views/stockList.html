@@ -1,0 +1,46 @@
+
+<div class="content-header" >
+    <h1>Stock List</h1>
+    <p></p>
+</div>
+<div class="dashboard_content_section" ng-controller="StockCtrl">
+    <div class="panel panel-default">
+        <div class="panel-body" style="font-size: 16px;font-weight:200;color:darkslategray">
+            <p>We focus on large-cap equities in the technology sector with 50 stocks. Our data source is Yahoo Finance and NASDAQ exchange for real time market data and Wall Street Journal for earnings data. </p>
+        </div>
+    </div>
+
+    <div class="panel panel-info" >
+        <div class="panel-heading">Step III. Select The Stock You Want To Watch</div>
+        <div class="panel-body stock-list">
+            <span class="stock-list-item" ng-repeat ="s in stockList">
+            <span class="label"  title="Predicted Price" data-toggle="popover"
+                  ng-class="{
+                  'label-success': s.standard_deviation > currentUser.Personal_Risk_Level - 2.5
+                  && s.standard_deviation < currentUser.Personal_Risk_Level+2.5,
+
+                  'label-warning': s.standard_deviation > currentUser.Personal_Risk_Level + 2.5
+                  && s.standard_deviation < currentUser.Personal_Risk_Level+3.5,
+
+                  'label-danger': s.standard_deviation > currentUser.Personal_Risk_Level + 3.5,
+
+                  'label-grey': s.standard_deviation <= currentUser.Personal_Risk_Level -2.5}"
+
+                  data-trigger="hover" data-content="{{s.predicted_price | number : 2}}">
+
+                <input type="checkbox" ng-click="selectOneStock(s.code)"
+                       ng-checked="currentUser.selectedStockList.indexOf(s.code) > -1" value="{{s.code}}">
+                <a href="/home/stock_detail/{{s.code}}" style="font-size:14px;color:ghostwhite">{{s.name}}</a>
+            </span>
+            </span>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+    <div class="panel panel-default" style="padding: 5px">
+        <button type="button" class="btn btn-success" ng-click="submitStockSubscribe()">Submit</button>
+    </div>
+</div>

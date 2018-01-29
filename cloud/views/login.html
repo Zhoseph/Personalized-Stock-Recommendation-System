@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="login" ng-controller="login_controller">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title%></title>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="/stylesheets/style_for_login.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+</head>
+
+<body>
+
+<div class="login">
+    <h1>Stock Recommendation System</h1>
+    <h2>User Login</h2>
+    <% if(data != null && data.err !=null){%>
+    <h4><%=data.err%></h4>
+    <%}%>
+    <form method="post" action="/user/login">
+        <input type="text" name="username" placeholder="Username" required="required" />
+        <input type="password" name="password" placeholder="Password" required="required" />
+        <p>{{holder}}</p>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in</button>
+    </form>
+    <p></p>
+    <form action="/user/new_user" method="get">
+        <button type="submit"  class="btn btn-primary btn-block btn-large"  >New User</button>
+    </form>
+
+</div>
+
+<script>
+    var app = angular.module('login', []);
+    app.controller('login_controller', function($scope,$http) {
+        $scope.new_user=function () {
+            var req={
+                method:"GET",
+                url:"/user/new_user",
+            };
+            $http(req).then(function success(response){
+                alert("SUCCEDED ");
+            },function error(response){
+                $scope.holder="Invalid";
+                alert(response.toString());
+            });
+        }
+
+    });
+</script>
+
+</body>
+</html>

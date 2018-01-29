@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>SignUp</title>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="/stylesheets/style_for_signup.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+
+<body>
+<div class="SignUp">
+
+    <h1>User Sign Up</h1>
+    <form method="post" action="/user/signup">
+        <% if(data != null && data.err !=null){%>
+        <h4><%=data.err%></h4>
+        <%}%>
+        <input type="text" name="username" placeholder="Username" required="required" />
+        <input type="password" name="password" placeholder="Password" required="required" />
+        <input type="password" name="re_password" placeholder="Re-Enter Password" required="required" />
+        <input type="text" name="p" placeholder="SSN" required="required" />
+        <input type="text" name="p" placeholder="Age" required="required" />
+        <input type="email" name="p" placeholder="E-mail" required="required" />
+        <input type="text" name="p" placeholder="Phone Number" required="required" />
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Sign Up</button>
+    </form>
+</div>
+
+<script src="js/Login_SignUP.js"></script>
+
+</body>
+</html>
